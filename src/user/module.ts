@@ -5,12 +5,18 @@ import { USER_REPOSITORY } from './constants';
 import { UserRepository } from './repositories';
 import { CreateSuperAdmin } from './commands';
 import { ConsoleModule } from '@squareboat/nest-console';
-// import { ApplicationsModule } from '@app/applications/applications.module';
-// import { JobsModule } from '@app/jobs';
+import { UserController } from './controllers';
+import { ApplicationsModule } from '@app/applications/applications.module';
+import { JobsModule } from '@app/jobs';
 
 @Module({
-  imports: [],
-  controllers: [],
+  imports: [
+    HttpModule,
+    ConsoleModule,
+    forwardRef(() => ApplicationsModule),
+    JobsModule,
+  ],
+  controllers: [UserController],
   providers: [
     UserService,
     CreateSuperAdmin,

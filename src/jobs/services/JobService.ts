@@ -155,14 +155,14 @@ export class JobsService {
     return await this.applicationservice.index(inputs);
   }
 
-  // async deleteAllUserJobs(user_id: number) {
-  //   if (await this.jobs.exists({ user_id: user_id })) {
-  //     const jobs = await this.jobs.getWhere({ user_id: user_id });
-  //     jobs.forEach(
-  //       async (job: JobDocument) =>
-  //         await this.applicationservice.deleteapplications({ job_id: job.id }),
-  //     );
-  //     return await this.jobs.deleteWhere({ user_id: user_id });
-  //   } else return;
-  // }
+  async deleteAllUserJobs(user_id: number) {
+    if (await this.jobs.exists({ user_id: user_id })) {
+      const jobs = await this.jobs.getWhere({ user_id: user_id });
+      jobs.forEach(
+        async (job: JobDocument) =>
+          await this.applicationservice.deleteapplications({ job_id: job.id }),
+      );
+      return await this.jobs.deleteWhere({ user_id: user_id });
+    } else return;
+  }
 }
